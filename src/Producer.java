@@ -3,18 +3,14 @@ public class Producer implements Runnable {
     private final int id;
     private final int itemCount;
     private final Manager manager;
-    private final Thread thread;
 
     public Producer(int id, int itemCount, Manager manager) {
         this.id = id;
         this.itemCount = itemCount;
         this.manager = manager;
         System.out.printf("[Producer %d] Created. Will produce %d units of product.%n", id, itemCount);
-        thread = new Thread(this, "Producer-" + id);
-        thread.start();
+        new Thread(this, "Producer-" + id).start();
     }
-
-    public Thread getThread() { return thread; }
 
     @Override
     public void run() {

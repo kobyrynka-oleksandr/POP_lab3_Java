@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
-
 public class Main {
 
     private static final int STORAGE_SIZE = 5;
@@ -8,7 +5,7 @@ public class Main {
     private static final int NUM_PRODUCERS = 3;
     private static final int NUM_CONSUMERS = 2;
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
 
         System.out.printf("Storage: %d | Total products: %d | Producers: %d | Consumers: %d%n%n",
                 STORAGE_SIZE, TOTAL_ITEMS, NUM_PRODUCERS, NUM_CONSUMERS);
@@ -16,15 +13,13 @@ public class Main {
         Manager manager = new Manager(STORAGE_SIZE);
 
         int[] producerShares = distribute(TOTAL_ITEMS, NUM_PRODUCERS);
-        List<Thread> threads = new ArrayList<>();
-
         for (int i = 0; i < NUM_PRODUCERS; i++) {
-            threads.add(new Producer(i + 1, producerShares[i], manager).getThread());
+            new Producer(i + 1, producerShares[i], manager);
         }
 
         int[] consumerShares = distribute(TOTAL_ITEMS, NUM_CONSUMERS);
         for (int i = 0; i < NUM_CONSUMERS; i++) {
-            threads.add(new Consumer(i + 1, consumerShares[i], manager).getThread());
+            new Consumer(i + 1, consumerShares[i], manager);
         }
     }
 

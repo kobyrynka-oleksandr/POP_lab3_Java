@@ -3,18 +3,14 @@ public class Consumer implements Runnable {
     private final int id;
     private final int itemCount;
     private final Manager manager;
-    private final Thread thread;
 
     public Consumer(int id, int itemCount, Manager manager) {
         this.id = id;
         this.itemCount = itemCount;
         this.manager = manager;
         System.out.printf("[Consumer %d] Created. Will consume %d units of product.%n", id, itemCount);
-        thread = new Thread(this, "Consumer-" + id);
-        thread.start();
+        new Thread(this, "Consumer-" + id).start();
     }
-
-    public Thread getThread() { return thread; }
 
     @Override
     public void run() {
